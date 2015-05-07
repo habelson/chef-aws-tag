@@ -1,4 +1,4 @@
-include_recipe "aws"
+include Opscode::Aws::Ec2
 
 
 vol = ec2.describe_volumes[:volumes].find do |v|
