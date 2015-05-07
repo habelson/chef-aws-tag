@@ -1,6 +1,7 @@
+include_recipe "aws"
 ::Chef::Recipe.send(:include, Opscode::Aws::Ec2)
 
-include_recipe "aws"
+
 
 unless node['aws-tag']['tags'].empty? || node['aws-tag']['tags'].nil?
 	vol = ec2.describe_volumes[:volumes].find do |v|
