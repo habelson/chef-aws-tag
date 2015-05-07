@@ -10,3 +10,4 @@ version          "0.0.1"
 depends 'aws', '>= 0.2.4'
 
 provides 'aws-tag::ec2'
+provides 'aws-tag::ebs'
