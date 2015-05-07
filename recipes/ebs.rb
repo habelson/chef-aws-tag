@@ -1,12 +1,6 @@
-include Opscode::Aws::Ec2
-
-
-vol = ec2.describe_volumes[:volumes].find do |v|
-	v[:attachments].any? { |a| a[:instance_id] == node['ec2']['instance_id'] }
-	
+chef-aws-tag_ebs_volume node['ec2']['instance_id'] do
+	action :describe
 end
-
-Chef::Log.info "Found volumes #{vol}"
 
 
 
