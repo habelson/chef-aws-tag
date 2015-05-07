@@ -1,3 +1,5 @@
+include_recipe "aws"
+
 
 vol = ec2.describe_volumes[:volumes].find do |v|
 	v[:attachments].any? { |a| a[:instance_id] == node['ec2']['instance_id'] }
