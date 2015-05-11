@@ -1,12 +1,7 @@
 include_recipe "aws"
 ::Chef::Recipe.send(:include, Opscode::Aws::Ec2)
 
-unless node['aws-tag']['tags'].empty? || node['aws-tag']['tags'].nil?	
-    aws_resource_tag determine_volume(node['ec2']['instance_id']) do
-        tags(node['aws-tag']['tags'])
-        action :update
-    end
-end
+
 
 # Pulls the volume id from the volume_id attribute or the node data and verifies that the volume actually exists
 def determine_volume
@@ -31,4 +26,13 @@ def currently_attached_volume(instance_id)
   ec2.describe_volumes[:volumes].find do |v|
     v[:attachments].any? { a[:instance_id] == instance_id }
   end
+end
+
+unless node['aws-tag']['tags'].empty? || node['aws-tag']['tags'].nil?	
+    ebs_vol = determine_volume(node['ec2']['instance_id'])
+    aws_resource_tag 'chef generated volume' do
+    	resource_id lazy { node['aws']['ebs_volume']['db_ebs_volume']['volume_id'] }
+        tags(node['aws-tag']['tags'])
+        action :update
+    end
 end
