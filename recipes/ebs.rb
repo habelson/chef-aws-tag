@@ -2,7 +2,7 @@ include_recipe "aws"
 ::Chef::Recipe.send(:include, Opscode::Aws::Ec2)
 
 unless node['aws-tag']['tags'].empty? || node['aws-tag']['tags'].nil?	
-    aws_resource_tag determine(volume) do
+    aws_resource_tag determine_volume(node['ec2']['instance_id']) do
         tags(node['aws-tag']['tags'])
         action :update
     end
