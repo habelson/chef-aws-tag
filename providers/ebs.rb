@@ -1,8 +1,8 @@
-include_recipe "aws"
+#include_recipe "aws"
 ::Chef::Recipe.send(:include, Opscode::Aws::Ec2)
 
 #only does one volume for the instance right now.  TODO:Update to make work with multiples
-action :tag_instance_volumes do
+action :aws_tag_instance_volumes do
     	ebs_vol = determine_volume(node['ec2']['instance_id'])
     	aws_resource_tag 'chef generated volume' do
     	resource_id lazy { node['aws']['ebs_volume']['db_ebs_volume']['volume_id'] }
