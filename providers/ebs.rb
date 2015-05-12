@@ -1,5 +1,6 @@
 #include_recipe "aws"
-::Chef::Recipe.send(:include, Opscode::Aws::Ec2)
+#::Chef::Recipe.send(:include, Opscode::Aws::Ec2)
+include Opscode::Aws::Ec2
 
 #only does one volume for the instance right now.  TODO:Update to make work with multiples
 action :aws_tag_instance_volumes do
