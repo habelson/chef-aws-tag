@@ -5,4 +5,8 @@ unless node['aws-tag']['tags'].empty? || node['aws-tag']['tags'].nil?
         tags(node['aws-tag']['tags'])
         action :update
     end
+    
+    aws_tag_instance_volumes node['ec2']['instance_id'] do
+    	tags(node['aws-tag']['tags'])
+    	action :tag
 end
