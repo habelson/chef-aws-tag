@@ -1,4 +1,3 @@
-
 include_recipe "aws"
 
 unless node['aws-tag']['tags'].empty? || node['aws-tag']['tags'].nil?
