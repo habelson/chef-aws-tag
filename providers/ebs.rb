@@ -3,7 +3,7 @@
 include Opscode::Aws::Ec2
 
 #only does one volume for the instance right now.  TODO:Update to make work with multiples
-action :aws_tag_instance_volumes do
+action :tag do
     	ebs_vol = determine_volume(node['ec2']['instance_id'])
     	aws_resource_tag 'chef generated volume' do
     	resource_id lazy { node['aws']['ebs_volume']['db_ebs_volume']['volume_id'] }
