@@ -6,7 +6,7 @@ unless node['aws-tag']['tags'].empty? || node['aws-tag']['tags'].nil?
         action :update
     end
     
-    chef_aws_tag_ebs node['ec2']['instance_id'] do
+    aws_tag_ebs node['ec2']['instance_id'] do
     	tags(node['aws-tag']['tags'])
     	action :tag
     end
