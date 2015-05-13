@@ -31,8 +31,7 @@ end
 # Returns the volume that's attached to the instance at the given device or nil if none matches
 def currently_attached_volume(instance_id)
   ec2.describe_volumes[:volumes].find do |v|
-    v[:attachments].any? { a[:instance_id] == instance_id }
+    v[:attachments].any? { |a| a[:instance_id] == instance_id }
   end
 end
-
 
