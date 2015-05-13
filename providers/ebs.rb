@@ -13,7 +13,7 @@ action :tag do
 end
 
 # Pulls the volume id from the volume_id attribute or the node data and verifies that the volume actually exists
-def determine_volume(volume_id)
+def determine_volume(instance_id)
   vol = currently_attached_volume(instance_id)
   vol_id = (vol ? vol[:volume_id] : nil)
   fail 'volume_id attribute not set and no volume id is set in the node data for this resource (which is populated by action :create) and no volume is attached at the device' unless vol_id
