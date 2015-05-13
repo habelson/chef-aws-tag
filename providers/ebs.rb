@@ -32,9 +32,10 @@ end
 def currently_attached_volume(instance_id)
   Chef::Log.info "Getting currently attached volumes for instance #{instance_id}"
   Chef::Log.info "Currently attached volumes #{ec2.describe_volumes}"
-  ec2.describe_volumes[:volumes].find do |v|
+  #ec2.describe_volumes[:volumes].find do |v|
+  ec2.describe_volumes.find do |v|
     Chef::Log.info "volume info #{v}"
-    v[:attachments].any? { |a| a[:instance_id] == instance_id }
+    v[:aws_attachment_status].any? { |a| a[:aws_instance_id] == instance_id }
   end
 end
 
