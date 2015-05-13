@@ -1,3 +1,4 @@
+require 'json'
 #include_recipe "aws"
 #::Chef::Recipe.send(:include, Opscode::Aws::Ec2)
 include Opscode::Aws::Ec2
@@ -31,7 +32,7 @@ end
 # Returns the volume that's attached to the instance at the given device or nil if none matches
 def currently_attached_volume(instance_id)
   Chef::Log.info "Getting currently attached volumes for instance #{instance_id}"
-  Chef::Log.info "Currently attached volumes #{ec2.describe_volumes}"
+  Chef::Log.info "Currently attached volumes #{ec2.describe_volumes.to_json}"
   #ec2.describe_volumes[:volumes].find do |v|
   ec2.describe_volumes.find do |v|
     Chef::Log.info "volume info #{v}"
