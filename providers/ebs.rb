@@ -7,7 +7,7 @@ include Opscode::Aws::Ec2
 action :tag do
     	ebs_vol = determine_volume(node['ec2']['instance_id'])
     	aws_resource_tag 'chef generated volume' do
-    	resource_id lazy { node['aws']['ebs_volume']['db_ebs_volume']['volume_id'] }
+    	resource_id ebs_vol[:aws_id]
         tags(node['aws-tag']['tags'])
         action :update
 	end
@@ -19,11 +19,6 @@ def determine_volume(instance_id)
   vol_id = (vol ? vol[:aws_id] : nil)
   fail 'volume_id attribute not set and no volume id is set in the node data for this resource (which is populated by action :create) and no volume is attached at the device' unless vol_id
   vol
-end
-
-# Retrieves information for a volume
-def volume_by_id(volume_id)
-  ec2.describe_volumes[:volumes].find { |v| v[:volume_id] == volume_id }
 end
 
 # Returns the volume that's attached to the instance at the given device or nil if none matches
